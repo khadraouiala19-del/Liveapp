@@ -22,55 +22,6 @@
             gap: 12px;
         }
 
-        /* Top Notification */
-        .notification-card {
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: opacity 0.3s ease;
-        }
-
-        .notification-card.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .notification-icon {
-            width: 28px;
-            height: 28px;
-            background: #000;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .notification-content {
-            flex: 1;
-        }
-
-        .notification-title {
-            font-size: 11px;
-            color: #8a8b91;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .notification-text {
-            font-size: 12px;
-            font-weight: 600;
-            color: #121212;
-            margin-top: 1px;
-        }
-
-        /* Balance Display */
         .balance-section {
             text-align: center;
             padding: 10px 0;
@@ -111,7 +62,6 @@
             margin-top: 4px;
         }
 
-        /* Username Box */
         .input-container {
             margin-top: 4px;
         }
@@ -195,7 +145,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Coins Options Grid */
         .section-header {
             font-size: 14px;
             font-weight: 600;
@@ -247,7 +196,6 @@
             margin-top: 4px;
         }
 
-        /* Submit Button */
         .action-btn {
             background: #fe2c55;
             color: #ffffff;
@@ -261,10 +209,6 @@
             cursor: pointer;
         }
 
-        .action-btn:active {
-            transform: scale(0.98);
-        }
-
         .policy-text {
             font-size: 11px;
             color: #8a8b91;
@@ -276,23 +220,88 @@
         .policy-text b {
             color: #121212;
         }
+
+        /* Success Popup Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            width: 85%;
+            max-width: 320px;
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-box {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background: #25f4ee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            color: #fff;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #121212;
+            margin-bottom: 8px;
+        }
+
+        .modal-desc {
+            font-size: 13px;
+            color: #616161;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .modal-btn {
+            background: #fe2c55;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <!-- TikTok LIVE Notification -->
-    <div class="notification-card" id="notifCard">
-        <div class="notification-icon">d</div>
-        <div class="notification-content">
-            <div class="notification-title">
-                <span>TikTok LIVE Rewards</span>
-                <span>Now</span>
-            </div>
-            <div class="notification-text" id="notifText">Successfully sent coins to recipient</div>
-        </div>
-    </div>
-
-    <!-- Balance Display -->
     <div class="balance-section">
         <div class="balance-title">TikTok Coins Balance</div>
         <div class="balance-main" id="mainBalance">$857,221,232.72</div>
@@ -304,7 +313,6 @@
         <div class="balance-available">Available balance to exchange the Coins</div>
     </div>
 
-    <!-- Username Input -->
     <div class="input-container">
         <label class="input-label">TikTok username</label>
         <div class="input-wrapper">
@@ -315,14 +323,12 @@
         <div class="search-status" id="searchStatus">Searching @andge...</div>
     </div>
 
-    <!-- Loading Spinner -->
     <div class="loading-box">
         <div class="spinner"></div>
     </div>
 
     <div class="section-header">Exchange earnings for Coins</div>
 
-    <!-- Coins Cards Grid -->
     <div class="coins-grid">
         <div class="coin-card active" onclick="selectCard(this, 20, 11, 0.29)">
             <div class="coin-val">
@@ -395,6 +401,16 @@
 
     <button class="action-btn" onclick="executeRecharge()">Recharger</button>
 
+    <!-- Success Modal Popup -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <div class="success-icon">✓</div>
+            <div class="modal-title">تمت العملية بنجاح!</div>
+            <div class="modal-desc" id="modalDesc">تم شحن العملات وإرسالها إلى الحساب بنجاح.</div>
+            <button class="modal-btn" onclick="closeModal()">حسناً</button>
+        </div>
+    </div>
+
     <script>
         let currentBalanceDollar = 857221232.72;
         let currentCoins = 70635011600;
@@ -442,17 +458,16 @@
                 document.getElementById('subDollar').innerText = currentBalanceDollar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 document.getElementById('coinsTotal').innerText = formatNumber(currentCoins);
 
-                // Update notification text
-                document.getElementById('notifText').innerText = `Successfully sent ${formatNumber(totalCoinsToAdd)} coins to @${user}`;
-                const notif = document.getElementById('notifCard');
-                notif.classList.remove('hidden');
-
-                setTimeout(() => {
-                    notif.classList.add('hidden');
-                }, 4000);
+                // Update Modal text and show
+                document.getElementById('modalDesc').innerText = `تم شحن ${formatNumber(totalCoinsToAdd)} عملة وإرسالها بنجاح إلى الحساب @${user}`;
+                document.getElementById('successModal').classList.add('show');
             } else {
                 alert('Insufficient balance');
             }
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('short', 'show');
         }
     </script>
 </body>
