@@ -31,6 +31,12 @@
             align-items: center;
             gap: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: opacity 0.3s ease;
+        }
+
+        .notification-card.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .notification-icon {
@@ -64,7 +70,7 @@
             margin-top: 1px;
         }
 
-        /* Balance Card */
+        /* Balance Display */
         .balance-section {
             text-align: center;
             padding: 10px 0;
@@ -211,6 +217,7 @@
             text-align: center;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .coin-card.active {
@@ -254,6 +261,10 @@
             cursor: pointer;
         }
 
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
         .policy-text {
             font-size: 11px;
             color: #8a8b91;
@@ -270,14 +281,14 @@
 <body>
 
     <!-- TikTok LIVE Notification -->
-    <div class="notification-card">
+    <div class="notification-card" id="notifCard">
         <div class="notification-icon">d</div>
         <div class="notification-content">
             <div class="notification-title">
                 <span>TikTok LIVE Rewards</span>
                 <span>Now</span>
             </div>
-            <div class="notification-text">Successfully sent coins to recipient</div>
+            <div class="notification-text" id="notifText">Successfully sent coins to recipient</div>
         </div>
     </div>
 
@@ -286,7 +297,7 @@
         <div class="balance-title">TikTok Coins Balance</div>
         <div class="balance-main" id="mainBalance">$857,221,232.72</div>
         <div class="balance-sub">
-            = $857,221,232.72 (
+            = $<span id="subDollar">857,221,232.72</span> (
             <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
             <span id="coinsTotal">70,635,011,600</span> )
         </div>
@@ -313,7 +324,7 @@
 
     <!-- Coins Cards Grid -->
     <div class="coins-grid">
-        <div class="coin-card active" onclick="selectCard(this, 20, 0.29)">
+        <div class="coin-card active" onclick="selectCard(this, 20, 11, 0.29)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 20 <span class="coin-bonus">+11</span>
@@ -321,7 +332,7 @@
             <div class="coin-price">0,29 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 70, 1.00)">
+        <div class="coin-card" onclick="selectCard(this, 70, 47, 1.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 70 <span class="coin-bonus">+47</span>
@@ -329,7 +340,7 @@
             <div class="coin-price">1,00 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 350, 5.00)">
+        <div class="coin-card" onclick="selectCard(this, 350, 97, 5.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 350 <span class="coin-bonus">+97</span>
@@ -337,7 +348,7 @@
             <div class="coin-price">5,00 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 700, 10.00)">
+        <div class="coin-card" onclick="selectCard(this, 700, 197, 10.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 700 <span class="coin-bonus">+197</span>
@@ -345,7 +356,7 @@
             <div class="coin-price">10,00 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 1400, 20.00)">
+        <div class="coin-card" onclick="selectCard(this, 1400, 297, 20.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 1,400 <span class="coin-bonus">+297</span>
@@ -353,7 +364,7 @@
             <div class="coin-price">20,00 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 3500, 50.00)">
+        <div class="coin-card" onclick="selectCard(this, 3500, 497, 50.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 3,500 <span class="coin-bonus">+497</span>
@@ -361,7 +372,7 @@
             <div class="coin-price">50,00 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 7000, 100.00)">
+        <div class="coin-card" onclick="selectCard(this, 7000, 697, 100.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 7,000 <span class="coin-bonus">+697</span>
@@ -369,7 +380,7 @@
             <div class="coin-price">100,00 $US</div>
         </div>
 
-        <div class="coin-card" onclick="selectCard(this, 17500, 250.00)">
+        <div class="coin-card" onclick="selectCard(this, 17500, 997, 250.00)">
             <div class="coin-val">
                 <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
                 17,500 <span class="coin-bonus">+997</span>
@@ -385,13 +396,18 @@
     <button class="action-btn" onclick="executeRecharge()">Recharger</button>
 
     <script>
-        let selectedCoins = 20;
+        let currentBalanceDollar = 857221232.72;
+        let currentCoins = 70635011600;
+        
+        let selectedBaseCoins = 20;
+        let selectedBonus = 11;
         let selectedCost = 0.29;
 
-        function selectCard(element, coins, cost) {
+        function selectCard(element, coins, bonus, cost) {
             document.querySelectorAll('.coin-card').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
-            selectedCoins = coins;
+            selectedBaseCoins = coins;
+            selectedBonus = bonus;
             selectedCost = cost;
         }
 
@@ -404,13 +420,39 @@
             document.getElementById('searchStatus').innerText = 'Searching @...';
         }
 
+        function formatNumber(num) {
+            return num.toLocaleString('en-US');
+        }
+
         function executeRecharge() {
-            const user = document.getElementById('usernameInput').value;
+            const user = document.getElementById('usernameInput').value.trim();
             if(!user) {
                 alert('Please enter a username');
                 return;
             }
-            alert(`Recharge of ${selectedCoins} coins sent successfully to @${user}!`);
+
+            const totalCoinsToAdd = selectedBaseCoins + selectedBonus;
+
+            if (currentCoins >= totalCoinsToAdd && currentBalanceDollar >= selectedCost) {
+                currentCoins -= totalCoinsToAdd;
+                currentBalanceDollar -= selectedCost;
+
+                // Update UI numbers
+                document.getElementById('mainBalance').innerText = '$' + currentBalanceDollar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                document.getElementById('subDollar').innerText = currentBalanceDollar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                document.getElementById('coinsTotal').innerText = formatNumber(currentCoins);
+
+                // Update notification text
+                document.getElementById('notifText').innerText = `Successfully sent ${formatNumber(totalCoinsToAdd)} coins to @${user}`;
+                const notif = document.getElementById('notifCard');
+                notif.classList.remove('hidden');
+
+                setTimeout(() => {
+                    notif.classList.add('hidden');
+                }, 4000);
+            } else {
+                alert('Insufficient balance');
+            }
         }
     </script>
 </body>
