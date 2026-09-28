@@ -353,6 +353,7 @@
             color: #616161;
             margin-bottom: 20px;
             line-height: 1.4;
+            direction: rtl;
         }
 
         .modal-btn {
@@ -497,9 +498,9 @@
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
             <div class="success-icon">✓</div>
-            <div class="modal-title">تمت العملية بنجاح!</div>
+            <div class="modal-title">تمت العملية بنجاح! / Succès !</div>
             <div class="modal-desc" id="modalDesc">تم شحن العملات وإرسالها إلى الحساب بنجاح.</div>
-            <button class="modal-btn" onclick="closeModal()">حسناً</button>
+            <button class="modal-btn" onclick="closeModal()">حسناً / OK</button>
         </div>
     </div>
 
@@ -553,7 +554,14 @@
                 document.getElementById('subDollar').innerText = currentBalanceDollar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 document.getElementById('coinsTotal').innerText = formatNumber(currentCoins);
 
-                document.getElementById('modalDesc').innerText = `تم شحن ${formatNumber(totalCoinsToAdd)} عملة وإرسالها بنجاح إلى الحساب @${user}.\nستصل العملات في غضون ساعتين.`;
+                document.getElementById('modalDesc').innerHTML = `
+                    تم شحن ${formatNumber(totalCoinsToAdd)} عملة وإرسالها بنجاح إلى الحساب @${user}.<br>
+                    ستصل العملات في غضون ساعتين.<br><br>
+                    <span dir="ltr" style="display:inline-block; font-size:12px; color:#616161;">
+                    Recharge de ${formatNumber(totalCoinsToAdd)} pièces envoyée avec succès au compte @${user}.<br>
+                    Les pièces arriveront dans les deux heures.
+                    </span>
+                `;
                 document.getElementById('successModal').classList.add('show');
             } else {
                 alert('Insufficient balance');
