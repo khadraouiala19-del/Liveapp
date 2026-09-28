@@ -53,7 +53,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 6px;
+        }
+
+        .coin-img-inline {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
         }
 
         .input-group {
@@ -110,9 +116,13 @@
             background: #fff5f7;
         }
 
-        .coin-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
+        .coin-icon-box {
+            margin-bottom: 6px;
+        }
+
+        .coin-icon-box img {
+            width: 28px;
+            height: 28px;
         }
 
         .coin-count {
@@ -165,30 +175,37 @@
 
     <div class="balance-card">
         <div class="balance-title">Simulated Earnings Balance</div>
-        <div class="balance-amount" id="balanceAmount">$978,467,740</div>
+        <div class="balance-amount" id="balanceAmount">$978,467,285</div>
         <div class="coins-amount">
-            🪙 <span id="coinsAmount">99,840,000</span> Coins Available
+            <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-img-inline" alt="coin">
+            Coins Available <span id="coinsAmount">99,794,500</span>
         </div>
     </div>
 
     <div class="input-group">
         <label class="input-label">TikTok username</label>
-        <input type="text" id="username" class="input-field" placeholder="@username" value="@anis12">
+        <input type="text" id="username" class="input-field" placeholder="@username" value="@amin">
     </div>
 
     <div class="section-title">Exchange earnings for Coins</div>
 
     <div class="coins-grid">
-        <div class="coin-option selected" onclick="selectOption(this, 350, 3.5)">
-            <div class="coin-icon">🪙</div>
+        <div class="coin-option" onclick="selectOption(this, 350, 3.5)">
+            <div class="coin-icon-box">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" alt="coin">
+            </div>
             <div class="coin-count">350</div>
         </div>
         <div class="coin-option" onclick="selectOption(this, 500, 5.0)">
-            <div class="coin-icon">🪙</div>
+            <div class="coin-icon-box">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" alt="coin">
+            </div>
             <div class="coin-count">500</div>
         </div>
-        <div class="coin-option" onclick="selectOption(this, 15000, 150.0)">
-            <div class="coin-icon">🪙</div>
+        <div class="coin-option selected" onclick="selectOption(this, 15000, 150.0)">
+            <div class="coin-icon-box">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" alt="coin">
+            </div>
             <div class="coin-count">15,000</div>
         </div>
     </div>
@@ -196,10 +213,10 @@
     <button class="exchange-btn" onclick="processExchange()">Exchange Coins</button>
 
     <script>
-        let currentBalance = 978467740;
-        let currentCoins = 99840000;
-        let selectedCoins = 350;
-        let selectedCost = 3.5;
+        let currentBalance = 978467285;
+        let currentCoins = 99794500;
+        let selectedCoins = 15000;
+        let selectedCost = 150.0;
 
         function selectOption(element, coins, cost) {
             document.querySelectorAll('.coin-option').forEach(el => el.classList.remove('selected'));
