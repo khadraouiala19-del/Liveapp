@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>TikTok Recharge</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>TikTok Coins Balance</title>
     <style>
         * {
             box-sizing: border-box;
@@ -18,80 +16,185 @@
         body {
             background-color: #f8f8f8;
             color: #121212;
-            padding: 20px 16px;
+            padding: 12px 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
 
-        .balance-card {
+        /* Top Notification */
+        .notification-card {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .balance-title {
-            font-size: 13px;
-            color: #8a8b91;
-            margin-bottom: 6px;
-        }
-
-        .balance-amount {
-            font-size: 32px;
-            font-weight: 800;
-            color: #121212;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-        }
-
-        .coins-amount {
-            font-size: 14px;
-            color: #fe2c55;
-            font-weight: 600;
+        .notification-icon {
+            width: 28px;
+            height: 28px;
+            background: #000;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
         }
 
-        .coin-img-inline {
-            width: 18px;
-            height: 18px;
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-size: 11px;
+            color: #8a8b91;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .notification-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: #121212;
+            margin-top: 1px;
+        }
+
+        /* Balance Card */
+        .balance-section {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .balance-title {
+            font-size: 14px;
+            color: #8a8b91;
+            margin-bottom: 4px;
+        }
+
+        .balance-main {
+            font-size: 34px;
+            font-weight: 800;
+            color: #121212;
+            letter-spacing: -0.5px;
+        }
+
+        .balance-sub {
+            font-size: 12px;
+            color: #8a8b91;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .coin-icon-small {
+            width: 14px;
+            height: 14px;
             vertical-align: middle;
         }
 
-        .input-group {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 12px 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        .balance-available {
+            font-size: 12px;
+            color: #8a8b91;
+            margin-top: 4px;
+        }
+
+        /* Username Box */
+        .input-container {
+            margin-top: 4px;
         }
 
         .input-label {
-            font-size: 12px;
-            color: #8a8b91;
-            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #121212;
+            margin-bottom: 8px;
             display: block;
         }
 
-        .input-field {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            font-weight: 600;
-            color: #121212;
-            direction: ltr;
-            text-align: right;
+        .input-wrapper {
+            position: relative;
+            background: #f1f1f2;
+            border: 1.5px solid #fe2c55;
+            border-radius: 24px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
         }
 
-        .section-title {
-            font-size: 14px;
-            font-weight: 700;
+        .input-prefix {
+            font-size: 16px;
+            color: #8a8b91;
+            margin-right: 6px;
+        }
+
+        .input-field {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
             color: #121212;
-            margin-top: 8px;
+        }
+
+        .clear-btn {
+            background: #d1d1d6;
+            color: #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .search-status {
+            font-size: 12px;
+            color: #8a8b91;
+            margin-top: 6px;
+            padding-left: 12px;
+        }
+
+        .loading-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #fe2c55;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Coins Options Grid */
+        .section-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: #121212;
+            margin-top: 6px;
         }
 
         .coins-grid {
@@ -100,163 +203,214 @@
             gap: 10px;
         }
 
-        .coin-option {
+        .coin-card {
             background: #ffffff;
-            border: 2px solid transparent;
+            border: 1.5px solid transparent;
             border-radius: 12px;
-            padding: 16px 8px;
+            padding: 12px 6px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .coin-option.selected {
+        .coin-card.active {
             border-color: #fe2c55;
             background: #fff5f7;
         }
 
-        .coin-icon-box {
-            margin-bottom: 6px;
-        }
-
-        .coin-icon-box img {
-            width: 28px;
-            height: 28px;
-        }
-
-        .coin-count {
-            font-size: 16px;
+        .coin-val {
+            font-size: 15px;
             font-weight: 700;
             color: #121212;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
-        .exchange-btn {
+        .coin-bonus {
+            color: #fe2c55;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .coin-price {
+            font-size: 11px;
+            color: #8a8b91;
+            margin-top: 4px;
+        }
+
+        /* Submit Button */
+        .action-btn {
             background: #fe2c55;
             color: #ffffff;
             border: none;
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 25px;
+            padding: 14px;
             font-size: 16px;
             font-weight: 700;
             width: 100%;
             margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(254, 44, 85, 0.3);
             cursor: pointer;
         }
 
-        .exchange-btn:active {
-            transform: scale(0.98);
+        .policy-text {
+            font-size: 11px;
+            color: #8a8b91;
+            text-align: center;
+            line-height: 1.4;
+            margin-top: 8px;
         }
 
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: rgba(18, 18, 18, 0.9);
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
+        .policy-text b {
+            color: #121212;
         }
     </style>
 </head>
 <body>
 
-    <div class="toast" id="toast">تم استبدال العملات بنجاح!</div>
-
-    <div class="balance-card">
-        <div class="balance-title">Simulated Earnings Balance</div>
-        <div class="balance-amount" id="balanceAmount">$978,467,285</div>
-        <div class="coins-amount">
-            <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-img-inline" alt="coin">
-            Coins Available <span id="coinsAmount">99,794,500</span>
+    <!-- TikTok LIVE Notification -->
+    <div class="notification-card">
+        <div class="notification-icon">d</div>
+        <div class="notification-content">
+            <div class="notification-title">
+                <span>TikTok LIVE Rewards</span>
+                <span>Now</span>
+            </div>
+            <div class="notification-text">Successfully sent coins to recipient</div>
         </div>
     </div>
 
-    <div class="input-group">
+    <!-- Balance Display -->
+    <div class="balance-section">
+        <div class="balance-title">TikTok Coins Balance</div>
+        <div class="balance-main" id="mainBalance">$857,221,232.72</div>
+        <div class="balance-sub">
+            = $857,221,232.72 (
+            <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+            <span id="coinsTotal">70,635,011,600</span> )
+        </div>
+        <div class="balance-available">Available balance to exchange the Coins</div>
+    </div>
+
+    <!-- Username Input -->
+    <div class="input-container">
         <label class="input-label">TikTok username</label>
-        <input type="text" id="username" class="input-field" placeholder="@username" value="@amin">
+        <div class="input-wrapper">
+            <span class="input-prefix">@</span>
+            <input type="text" class="input-field" id="usernameInput" value="andge" oninput="updateSearchText(this.value)">
+            <div class="clear-btn" onclick="clearInput()">✕</div>
+        </div>
+        <div class="search-status" id="searchStatus">Searching @andge...</div>
     </div>
 
-    <div class="section-title">Exchange earnings for Coins</div>
+    <!-- Loading Spinner -->
+    <div class="loading-box">
+        <div class="spinner"></div>
+    </div>
 
+    <div class="section-header">Exchange earnings for Coins</div>
+
+    <!-- Coins Cards Grid -->
     <div class="coins-grid">
-        <div class="coin-option" onclick="selectOption(this, 350, 3.5)">
-            <div class="coin-icon-box">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" alt="coin">
+        <div class="coin-card active" onclick="selectCard(this, 20, 0.29)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                20 <span class="coin-bonus">+11</span>
             </div>
-            <div class="coin-count">350</div>
+            <div class="coin-price">0,29 $US</div>
         </div>
-        <div class="coin-option" onclick="selectOption(this, 500, 5.0)">
-            <div class="coin-icon-box">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" alt="coin">
+
+        <div class="coin-card" onclick="selectCard(this, 70, 1.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                70 <span class="coin-bonus">+47</span>
             </div>
-            <div class="coin-count">500</div>
+            <div class="coin-price">1,00 $US</div>
         </div>
-        <div class="coin-option selected" onclick="selectOption(this, 15000, 150.0)">
-            <div class="coin-icon-box">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" alt="coin">
+
+        <div class="coin-card" onclick="selectCard(this, 350, 5.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                350 <span class="coin-bonus">+97</span>
             </div>
-            <div class="coin-count">15,000</div>
+            <div class="coin-price">5,00 $US</div>
+        </div>
+
+        <div class="coin-card" onclick="selectCard(this, 700, 10.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                700 <span class="coin-bonus">+197</span>
+            </div>
+            <div class="coin-price">10,00 $US</div>
+        </div>
+
+        <div class="coin-card" onclick="selectCard(this, 1400, 20.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                1,400 <span class="coin-bonus">+297</span>
+            </div>
+            <div class="coin-price">20,00 $US</div>
+        </div>
+
+        <div class="coin-card" onclick="selectCard(this, 3500, 50.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                3,500 <span class="coin-bonus">+497</span>
+            </div>
+            <div class="coin-price">50,00 $US</div>
+        </div>
+
+        <div class="coin-card" onclick="selectCard(this, 7000, 100.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                7,000 <span class="coin-bonus">+697</span>
+            </div>
+            <div class="coin-price">100,00 $US</div>
+        </div>
+
+        <div class="coin-card" onclick="selectCard(this, 17500, 250.00)">
+            <div class="coin-val">
+                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                17,500 <span class="coin-bonus">+997</span>
+            </div>
+            <div class="coin-price">250,00 $US</div>
         </div>
     </div>
 
-    <button class="exchange-btn" onclick="processExchange()">Exchange Coins</button>
+    <div class="policy-text">
+        En appuyant sur « Recharger », tu acceptes la <b>Politique relative aux articles virtuels</b>. Les bonus seront retirés en cas de...
+    </div>
+
+    <button class="action-btn" onclick="executeRecharge()">Recharger</button>
 
     <script>
-        let currentBalance = 978467285;
-        let currentCoins = 99794500;
-        let selectedCoins = 15000;
-        let selectedCost = 150.0;
+        let selectedCoins = 20;
+        let selectedCost = 0.29;
 
-        function selectOption(element, coins, cost) {
-            document.querySelectorAll('.coin-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
+        function selectCard(element, coins, cost) {
+            document.querySelectorAll('.coin-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
             selectedCoins = coins;
             selectedCost = cost;
         }
 
-        function formatNumber(num) {
-            return num.toLocaleString('en-US');
+        function updateSearchText(val) {
+            document.getElementById('searchStatus').innerText = `Searching @${val}...`;
         }
 
-        function processExchange() {
-            const usernameInput = document.getElementById('username').value.trim();
-            
-            if (!usernameInput) {
-                alert('الرجاء كتابة اسم المستخدم أولاً');
+        function clearInput() {
+            document.getElementById('usernameInput').value = '';
+            document.getElementById('searchStatus').innerText = 'Searching @...';
+        }
+
+        function executeRecharge() {
+            const user = document.getElementById('usernameInput').value;
+            if(!user) {
+                alert('Please enter a username');
                 return;
             }
-
-            if (currentCoins >= selectedCoins) {
-                currentCoins -= selectedCoins;
-                currentBalance -= selectedCost;
-
-                document.getElementById('balanceAmount').innerText = '$' + formatNumber(Math.round(currentBalance));
-                document.getElementById('coinsAmount').innerText = formatNumber(currentCoins);
-
-                showToast(`تم تحويل ${formatNumber(selectedCoins)} عملة إلى ${usernameInput}`);
-            } else {
-                alert('الرصيد غير كافي');
-            }
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            alert(`Recharge of ${selectedCoins} coins sent successfully to @${user}!`);
         }
     </script>
 </body>
