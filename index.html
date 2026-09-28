@@ -50,9 +50,11 @@
             gap: 4px;
         }
 
-        .coin-icon-small {
+        /* SVG Gold Coin Icon */
+        .tiktok-coin {
             width: 14px;
             height: 14px;
+            display: inline-block;
             vertical-align: middle;
         }
 
@@ -221,7 +223,7 @@
             color: #121212;
         }
 
-        /* Success Popup Modal */
+        /* Success Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -302,12 +304,21 @@
 </head>
 <body>
 
+    <!-- Template for Gold Coin SVG -->
+    <svg style="display: none;">
+        <symbol id="coin-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+            <circle cx="12" cy="12" r="6" fill="#FFC107"/>
+            <text x="12" y="16" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">đ</text>
+        </symbol>
+    </svg>
+
     <div class="balance-section">
         <div class="balance-title">TikTok Coins Balance</div>
         <div class="balance-main" id="mainBalance">$857,221,232.72</div>
         <div class="balance-sub">
             = $<span id="subDollar">857,221,232.72</span> (
-            <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+            <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
             <span id="coinsTotal">70,635,011,600</span> )
         </div>
         <div class="balance-available">Available balance to exchange the Coins</div>
@@ -332,7 +343,7 @@
     <div class="coins-grid">
         <div class="coin-card active" onclick="selectCard(this, 20, 11, 0.29)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 20 <span class="coin-bonus">+11</span>
             </div>
             <div class="coin-price">0,29 $US</div>
@@ -340,7 +351,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 70, 47, 1.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 70 <span class="coin-bonus">+47</span>
             </div>
             <div class="coin-price">1,00 $US</div>
@@ -348,7 +359,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 350, 97, 5.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 350 <span class="coin-bonus">+97</span>
             </div>
             <div class="coin-price">5,00 $US</div>
@@ -356,7 +367,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 700, 197, 10.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 700 <span class="coin-bonus">+197</span>
             </div>
             <div class="coin-price">10,00 $US</div>
@@ -364,7 +375,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 1400, 297, 20.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 1,400 <span class="coin-bonus">+297</span>
             </div>
             <div class="coin-price">20,00 $US</div>
@@ -372,7 +383,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 3500, 497, 50.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 3,500 <span class="coin-bonus">+497</span>
             </div>
             <div class="coin-price">50,00 $US</div>
@@ -380,7 +391,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 7000, 697, 100.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 7,000 <span class="coin-bonus">+697</span>
             </div>
             <div class="coin-price">100,00 $US</div>
@@ -388,7 +399,7 @@
 
         <div class="coin-card" onclick="selectCard(this, 17500, 997, 250.00)">
             <div class="coin-val">
-                <img src="https://p16-va.tiktokcdn.com/obj/musically-maliva-obj/6932431940901201925" class="coin-icon-small" alt="coin">
+                <svg class="tiktok-coin"><use href="#coin-icon"/></svg>
                 17,500 <span class="coin-bonus">+997</span>
             </div>
             <div class="coin-price">250,00 $US</div>
@@ -401,7 +412,7 @@
 
     <button class="action-btn" onclick="executeRecharge()">Recharger</button>
 
-    <!-- Success Modal Popup -->
+    <!-- Success Modal -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
             <div class="success-icon">✓</div>
@@ -453,12 +464,10 @@
                 currentCoins -= totalCoinsToAdd;
                 currentBalanceDollar -= selectedCost;
 
-                // Update UI numbers
                 document.getElementById('mainBalance').innerText = '$' + currentBalanceDollar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 document.getElementById('subDollar').innerText = currentBalanceDollar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 document.getElementById('coinsTotal').innerText = formatNumber(currentCoins);
 
-                // Update Modal text and show
                 document.getElementById('modalDesc').innerText = `تم شحن ${formatNumber(totalCoinsToAdd)} عملة وإرسالها بنجاح إلى الحساب @${user}`;
                 document.getElementById('successModal').classList.add('show');
             } else {
@@ -467,7 +476,7 @@
         }
 
         function closeModal() {
-            document.getElementById('successModal').classList.remove('short', 'show');
+            document.getElementById('successModal').classList.remove('show');
         }
     </script>
 </body>
