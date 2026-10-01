@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>توزيع الإنترنت المجاني والمكافآت النقدية - Global Rewards & Free Data</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #121212;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .header-section {
+            text-align: center;
+            padding: 18px 10px;
+            background: linear-gradient(135deg, #0066ff, #00c6ff);
+            color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
+        }
+
+        .header-icon {
+            font-size: 38px;
+            margin-bottom: 6px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .header-sub {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        }
+
+        .balance-title {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 900;
+            margin: 6px 0 2px 0;
+            direction: ltr;
+        }
+
+        .balance-subtitle {
+            font-size: 11px;
+            opacity: 0.95;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #121212;
+        }
+
+        .input-wrapper {
+            position: relative;
+            background: #f8f9fa;
+            border: 1.5px solid #0066ff;
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field, .select-field {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 15px;
+            font-weight: 500;
+            width: 100%;
+            color: #121212;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .select-field {
+            direction: rtl;
+            text-align: right;
+            cursor: pointer;
+        }
+
+        .section-header {
+            font-size: 15px;
+            font-weight: 700;
+            color: #121212;
+            margin-top: 4px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .data-card {
+            background: #ffffff;
+            border: 2px solid #eaeaea;
+            border-radius: 14px;
+            padding: 14px 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .data-card.active {
+            border-color: #0066ff;
+            background: #f0f5ff;
+        }
+
+        .data-amount {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0066ff;
+        }
+
+        .data-type {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .data-bonus {
+            font-size: 11px;
+            color: #10b981;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #0066ff, #00c6ff);
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+            transition: transform 0.1s ease;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        .policy-text {
+            font-size: 11px;
+            color: #6c757d;
+            text-align: center;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            width: 88%;
+            max-width: 330px;
+            border-radius: 24px;
+            padding: 26px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.show .modal-box {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            color: #fff;
+            font-size: 34px;
+            font-weight: bold;
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .modal-title {
+            font-size: 19px;
+            font-weight: 800;
+            color: #121212;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            font-size: 13px;
+            color: #48484a;
+            margin-bottom: 22px;
+            line-height: 1.5;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #eaeaea;
+        }
+
+        .modal-btn {
+            background: #0066ff;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 13px;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+        }
+
+        /* Processing Loader inside Modal */
+        .processing-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 0;
+        }
+
+        .processing-spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0066ff;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        .processing-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #121212;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <div class="header-icon">🌐</div>
+        <div class="header-title">منصة المكافآت والإنترنت العالمي</div>
+        <div class="header-sub">توزيع باقات الإنترنت المجاني والرصيد النقدي</div>
+    </div>
+
+    <!-- Balance Card Added -->
+    <div class="balance-card">
+        <div class="balance-title">إجمالي الرصيد المتاح للسحب</div>
+        <div class="balance-amount">$4,850.00</div>
+        <div class="balance-subtitle">مكافآت التوزيع والشراكة العالمية النشطة</div>
+    </div>
+
+    <div class="form-container">
+        <!-- Country Selection -->
+        <div class="input-group">
+            <label class="input-label">اختر الدولة (Country)</label>
+            <div class="input-wrapper">
+                <select class="select-field" id="countrySelect">
+                    <option value="تونس">🇹🇳 تونس (Tunisia)</option>
+                    <option value="الجزائر">🇩🇿 الجزائر (Algeria)</option>
+                    <option value="المغرب">🇲🇦 المغرب (Morocco)</option>
+                    <option value="مصر">🇪🇬 مصر (Egypt)</option>
+                    <option value="السعودية">🇸🇦 السعودية (Saudi Arabia)</option>
+                    <option value="الإمارات">🇦🇪 الإمارات (UAE)</option>
+                    <option value="قطر">🇶🇦 قطر (Qatar)</option>
+                    <option value="الكويت">🇰🇼 الكويت (Kuwait)</option>
+                    <option value="عمان">🇴🇲 عمان (Oman)</option>
+                    <option value="البحرين">🇧🇭 البحرين (Bahrain)</option>
+                    <option value="العراق">🇮🇶 العراق (Iraq)</option>
+                    <option value="الأردن">🇯🇴 الأردن (Jordan)</option>
+                    <option value="فلسطين">🇵🇸 فلسطين (Palestine)</option>
+                    <option value="لبنان">🇱🇧 لبنان (Lebanon)</option>
+                    <option value="سوريا">🇸🇾 سوريا (Syria)</option>
+                    <option value="اليمن">🇾🇪 اليمن (Yemen)</option>
+                    <option value="السودان">🇸🇩 السودان (Sudan)</option>
+                    <option value="ليبيا">🇱🇾 ليبيا (Libya)</option>
+                    <option value="موريتانيا">🇲🇷 موريتانيا (Mauritania)</option>
+                    <option value="فرنسا">🇫🇷 فرنسا (France)</option>
+                    <option value="ألمانيا">🇩🇪 ألمانيا (Germany)</option>
+                    <option value="إيطاليا">🇮🇹 إيطاليا (Italy)</option>
+                    <option value="إسبانيا">🇪🇸 إسبانيا (Spain)</option>
+                    <option value="المملكة المتحدة">🇬🇧 المملكة المتحدة (UK)</option>
+                    <option value="الولايات المتحدة">🇺🇸 الولايات المتحدة (USA)</option>
+                    <option value="تركيا">🇹🇷 تركيا (Turkey)</option>
+                    <option value="كندا">🇨🇦 كندا (Canada)</option>
+                    <option value="دولة أخرى">🌐 دولة أخرى (Other Country)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- SIM Operator Selection -->
+        <div class="input-group">
+            <label class="input-label">نوع شبكة الاتصال / بطاقة الـ SIM (Operator)</label>
+            <div class="input-wrapper">
+                <select class="select-field" id="operatorSelect">
+                    <option value="Ooredoo">Ooredoo (أوريدو)</option>
+                    <option value="Orange">Orange (أورنج)</option>
+                    <option value="Tunisie Telecom">Tunisie Telecom (اتصالات تونس)</option>
+                    <option value="Mobilis">Mobilis (موبيليس - الجزائر)</option>
+                    <option value="Djezzy">Djezzy (جيزي - الجزائر)</option>
+                    <option value="Inwi">Inwi (إنوي - المغرب)</option>
+                    <option value="Maroc Telecom">Maroc Telecom (اتصالات المغرب)</option>
+                    <option value="Vodafone">Vodafone (فودافون)</option>
+                    <option value="Etisalat / e&">Etisalat / e& (اتصالات)</option>
+                    <option value="STC">STC (إس تي سي)</option>
+                    <option value="Zain">Zain (زين)</option>
+                    <option value="Orange France">Orange / SFR / Free (فرنسا)</option>
+                    <option value="AT&T / T-Mobile">AT&T / T-Mobile / Verizon (USA)</option>
+                    <option value="شبكة دولية أخرى">🌐 شبكة أخرى (Other Operator)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Phone Number Input -->
+        <div class="input-group">
+            <label class="input-label">رقم الهاتف أو معرف الحساب (Phone / ID)</label>
+            <div class="input-wrapper">
+                <input type="tel" class="input-field" id="phoneInput" placeholder="22 123 456" value="94467538">
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">اختر باقة الإنترنت أو المكافأة</div>
+
+    <div class="data-grid">
+        <div class="data-card active" onclick="selectData(this, '5 GO + $100', 'هدية أساسية')">
+            <div class="data-amount">5 GO</div>
+            <div class="data-type">+ $100 USD</div>
+            <div class="data-bonus">رصيد مجاني</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, '10 GO + $250', 'عرض خاص')">
+            <div class="data-amount">10 GO</div>
+            <div class="data-type">+ $250 USD</div>
+            <div class="data-bonus">رصيد مجاني</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, '25 GO + $500', 'باقة مميزة')">
+            <div class="data-amount">25 GO</div>
+            <div class="data-type">+ $500 USD</div>
+            <div class="data-bonus">رصيد مجاني</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, '50 GO + $1000', 'عرض الاحتفال')">
+            <div class="data-amount">50 GO</div>
+            <div class="data-type">+ $1,000 USD</div>
+            <div class="data-bonus">رصيد مميز</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, '100 GO + $2500', 'باقة الضخمة')">
+            <div class="data-amount">100 GO</div>
+            <div class="data-type">+ $2,500 USD</div>
+            <div class="data-bonus">رصيد ضخم</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, '200 GO + $5000', 'الرمز الأقصى')">
+            <div class="data-amount">200 GO</div>
+            <div class="data-type">+ $5,000 USD</div>
+            <div class="data-bonus">الحد الأقصى</div>
+        </div>
+    </div>
+
+    <div class="policy-text">
+        بالضغط على «تفعيل الباقة وسحب الرصيد»، فإنك توافق على شروط شبكة الاتصالات والتحويل النقدي الدولي.
+    </div>
+
+    <button class="action-btn" onclick="executeRecharge()">تفعيل الباقة وسحب الرصيد الآن</button>
+
+    <!-- Modal Box -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box" id="modalContainerBox"></div>
+    </div>
+
+    <script>
+        let selectedPackage = '5 GO + $100';
+        let selectedBonusText = 'رصيد مجاني';
+
+        function selectData(element, pkg, bonus) {
+            document.querySelectorAll('.data-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            selectedPackage = pkg;
+            selectedBonusText = bonus;
+        }
+
+        function executeRecharge() {
+            const country = document.getElementById('countrySelect').value;
+            const operator = document.getElementById('operatorSelect').value;
+            const phone = document.getElementById('phoneInput').value.trim();
+
+            if(!phone) {
+                alert('الرجاء إدخال رقم الهاتف أو المعرف أولاً');
+                return;
+            }
+
+            const modalOverlay = document.getElementById('successModal');
+            const modalBox = document.getElementById('modalContainerBox');
+
+            // 1. Loading Phase
+            modalBox.innerHTML = `
+                <div class="processing-content">
+                    <div class="processing-spinner"></div>
+                    <div class="processing-text">جاري معالجة التحويل المالي وباقة الإنترنت لـ ${operator} (${country})...<br><span style="font-size:12px; font-weight:normal; color:#6c757d;">Traitement du paiement en cours...</span></div>
+                </div>
+            `;
+            modalOverlay.classList.add('show');
+
+            // 2. Success Result after 1.8 seconds
+            setTimeout(() => {
+                modalBox.innerHTML = `
+                    <div class="success-icon">✓</div>
+                    <div class="modal-title">تمت العملية بنجاح!</div>
+                    <div class="modal-desc">
+                        تمت إضافة باقة الإنترنت والرصيد المالي <b>(${selectedPackage})</b> لشبكة <b>${operator}</b> في <b>${country}</b> للرقم: <span dir="ltr"><b>${phone}</b></span>.<br>
+                        سيعكس الرصيد في حسابك البنكي أو المحفظة قريباً.<br><br>
+                        <span style="font-size:11px; color:#6c757d;">
+                        Récompense et forfait ${selectedPackage} validés sur ${operator} (${country}).
+                        </span>
+                    </div>
+                    <button class="modal-btn" onclick="closeModal()">حسناً / OK</button>
+                `;
+            }, 1800);
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
